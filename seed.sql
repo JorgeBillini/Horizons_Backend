@@ -6,43 +6,45 @@ CREATE DATABASE horizons;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR UNIQUE NOT NULL,
+  email VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
-  events_attended JSON,
-  xp INT
+  events_attended JSON NOT NULL,
+  xp VARCHAR DEFAULT '0',
 );
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
-  event_name VARCHAR NOT NULL,
-  categ VARCHAR NOT NULL,
-  sub_categ VARCHAR,
-  desc_ JSON NOT NULL,
+  name VARCHAR NOT NULL,
+  category VARCHAR NOT NULL,
+  subcategory VARCHAR,
+  format VARCHAR,
+  description_ JSON NOT NULL,
   url_ VARCHAR NOT NULL, 
-  start_time JSON NOT NULL,
-  end_time JSON NOT NULL,
+  starts TIMESTAMP NOT NULL,
+  ends TIMESTAMP NOT NULL,
   price VARCHAR NOT NULL,
-  summary VARCHAR NOT NULL,
   organizer VARCHAR,
   logo VARCHAR,
-  venue JSON,
-  capacity INT
+  venue JSON NOT NULL,
+  lat VARCHAR NOT NULL,
+  long VARCHAR NOT NULL,
+  capacity INT NOT NULL
 );
 
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
   business_name VARCHAR NOT NULL,
-  categ VARCHAR NOT NULL,
-  sub_categ TEXT [],
-  addr VARCHAR NOT NULL,
+  category VARCHAR NOT NULL,
+  address_ VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
-  state VARCHAR NOT NULL,
+  state_ VARCHAR NOT NULL,
   zip VARCHAR NOT NULL,
   lat NUMERIC NOT NULL,
   long NUMERIC NOT NULL,
   stars NUMERIC,
   review_count INT,
-  hours JSON,
+  hours_ JSON NOT NULL,
   img_url VARCHAR
 );
 
@@ -50,6 +52,7 @@ CREATE TABLE badges (
   id SERIAL PRIMARY KEY,
   badge_name VARCHAR NOT NULL,
   badge_description VARCHAR NOT NULL,
+  badge_xp_value INT NOT NULL,
   badge_image VARCHAR NOT NULL
 );
 
@@ -63,7 +66,6 @@ CREATE TABLE awards (
     FOREIGN KEY (badge_id)
     REFERENCES badges(id)
     ON DELETE CASCADE,
-  badge_xp_value INT NOT NULL,
   date_awarded TIMESTAMP DEFAULT NOW()
 );
 
