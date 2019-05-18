@@ -5,11 +5,11 @@ CREATE DATABASE horizons;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR NOT NULL,
+  username VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
   events_attended JSON,
-  xp INT NOT NULL
+  xp INT
 );
 
 CREATE TABLE events (
