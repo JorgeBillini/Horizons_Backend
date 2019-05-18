@@ -9,7 +9,7 @@ const badgeRouter = require('./routes/badges');
 const awardRouter = require('./routes/awards');
 const eventRouter = require('./routes/events');
 const placeRouter = require('./routes/places');
-const job = require('./services/cron.js');
+const job = require('./services/cron');
 
 //APP
 const app = express();
