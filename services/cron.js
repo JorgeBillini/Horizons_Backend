@@ -5,4 +5,4 @@ const job = new CronJob('00 00 03 * * *', () => {
   EventService.updateEvents();
 }, null, true, 'America/New_York');
 
-module.exports = nuJob;
+module.exports = job;
