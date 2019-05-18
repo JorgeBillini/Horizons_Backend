@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +16,8 @@
     "express": "^4.17.0",
     "moment": "^2.24.0",
     "pg-promise": "^8.7.2"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }
