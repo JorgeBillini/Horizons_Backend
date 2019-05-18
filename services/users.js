@@ -2,15 +2,15 @@ const db = require('./db');
 const UserService = {};
 module.exports = UserService;
 
-UserService.createUser = ({username, pic, interests, events_attended, xp}) =>{
+UserService.createUser = ({username, email, pic, interests, events_attended, xp}) =>{
     const sql = `
         INSERT INTO users 
-        (username, pic, interests, events_attended, xp) 
+        (username, email, pic, interests, events_attended, xp) 
         VALUES
-        ($[username], $[pic], $[interests], $[events_attended], $[xp])
+        ($[username], $[email], $[pic], $[interests], $[events_attended], $[xp])
         RETURNING *;
     `;
-    return db.one(sql, {username, pic, interests, events_attended, xp});
+    return db.one(sql, {username, email, pic, interests, events_attended, xp});
 }
 
 UserService.getUserByID = (id) =>{
@@ -22,11 +22,12 @@ UserService.getUserByID = (id) =>{
     return db.one(sql, {id});
 }
 
-UserService.updateUserByID = (id, {username, pic, interests, events_attended, xp}) =>{
+UserService.updateUserByID = (id, {username, email, pic, interests, events_attended, xp}) =>{
     const sql = `
         UPDATE users
         SET
             username = $[username],
+            email = $[email],
             pic = $[pic],
             interests = $[interests],
             events_attended = $[events_attended],
@@ -35,7 +36,7 @@ UserService.updateUserByID = (id, {username, pic, interests, events_attended, xp
             id = $[id]
         RETURNING *;
     `;
-    return db.one(sql, {id, username, pic, interests, events_attended, xp});
+    return db.one(sql, {id, username, email, pic, interests, events_attended, xp});
 }
 
 UserService.deleteUser = (id) =>{
