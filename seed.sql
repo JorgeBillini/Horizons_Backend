@@ -18,6 +18,7 @@ CREATE TABLE events (
   name VARCHAR NOT NULL,
   category VARCHAR NOT NULL,
   subcategory VARCHAR,
+  format VARCHAR,
   description_ JSON NOT NULL,
   url_ VARCHAR NOT NULL, 
   starts TIMESTAMP NOT NULL,
@@ -34,17 +35,16 @@ CREATE TABLE events (
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
   business_name VARCHAR NOT NULL,
-  categ VARCHAR NOT NULL,
-  sub_categ TEXT [],
-  addr VARCHAR NOT NULL,
+  category VARCHAR NOT NULL,
+  address_ VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
-  state VARCHAR NOT NULL,
+  state_ VARCHAR NOT NULL,
   zip VARCHAR NOT NULL,
   lat NUMERIC NOT NULL,
   long NUMERIC NOT NULL,
   stars NUMERIC,
   review_count INT,
-  hours JSON NOT NULL,
+  hours_ JSON NOT NULL,
   img_url VARCHAR
 );
 
