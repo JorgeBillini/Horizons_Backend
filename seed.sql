@@ -83,7 +83,7 @@ CREATE TABLE friends (
 );
 
 INSERT INTO badges 
-('badge_name', 'badge_description', 'badge_xp_value', 'badge_image')
+(badge_name, badge_description, badge_xp_value, badge_image)
 VALUES
 ('Welcome to Horizons', 'User checked in to 1st event using Horizons app.', 50, 'need img url'),
 ('Alive & Well', 'User has checked in to 5+ events.', 50, 'need img url'),
