@@ -8,7 +8,8 @@ placeRouter.get('/', (req, res)=>{
 	const {min_lat, max_lat, min_long, max_long} = req.query
 	PlaceService(min_lat,max_lat, min_long, max_long)
 	.then(data=>res.json({'msg':data}))
-	.catch(err=>
+	.catch(err=>{
 		console.log(err)
-		res.json{'msg':'error'})	
+		res.json({'msg':'error'})
+	})	
 });

@@ -34,18 +34,19 @@ CREATE TABLE events (
 
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
+  business_id VARCHAR NOT NULL,
   business_name VARCHAR NOT NULL,
-  category VARCHAR NOT NULL,
+  img_url VARCHAR,
+  categories TEXT [],
+  rating NUMERIC,
+  lat NUMERIC NOT NULL,
+  long NUMERIC NOT NULL,
+  price VARCHAR,
   address_ VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
   state_ VARCHAR NOT NULL,
   zip VARCHAR NOT NULL,
-  lat NUMERIC NOT NULL,
-  long NUMERIC NOT NULL,
-  stars NUMERIC,
-  review_count INT,
-  hours_ JSON NOT NULL,
-  img_url VARCHAR
+  phone NUMERIC
 );
 
 CREATE TABLE badges (
