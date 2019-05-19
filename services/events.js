@@ -29,7 +29,7 @@ EventService.getEvents = async () => {
     'https://www.eventbriteapi.com/v3/events/search/', 
     {
       'headers': {
-        'authorization': 'INSERT oAUTH KEY HERE/ACCESS FROM ENV VAR',
+        'authorization': process.env.EVENTBRITE_API_KEY,
         'content-type': 'application/json',
       },
       'params': {
@@ -51,7 +51,7 @@ EventService.getEvents = async () => {
       'https://www.eventbriteapi.com/v3/events/search/', 
       {
         'headers': {
-          'authorization': 'INSERT oAUTH KEY HERE/ACCESS FROM ENV VAR',
+          'authorization': process.env.EVENTBRITE_API_KEY,
           'content-type': 'application/json',
         },
         'params': {
