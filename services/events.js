@@ -29,7 +29,7 @@ EventService.getEvents = async () => {
     'https://www.eventbriteapi.com/v3/events/search/', 
     {
       'headers': {
-        'authorization': 'INSERT oAUTH KEY HERE/ACCESS FROM ENV VAR',
+        'authorization': process.env.EVENTBRITE_API_KEY,
         'content-type': 'application/json',
       },
       'params': {
@@ -51,7 +51,7 @@ EventService.getEvents = async () => {
       'https://www.eventbriteapi.com/v3/events/search/', 
       {
         'headers': {
-          'authorization': 'INSERT oAUTH KEY HERE/ACCESS FROM ENV VAR',
+          'authorization': process.env.EVENTBRITE_API_KEY,
           'content-type': 'application/json',
         },
         'params': {
@@ -125,7 +125,9 @@ EventService.updateEvents = async () => {
     });
 };
 
-EventService.getEventsInRadius = (max_lat, min_lat, max_long, min_long) => {  
+EventService.getEventsInRadius = (lat, long) => { 
+  const max_lat = parseInt(lat) + 0.00725, min_lat = parseInt(lat) - 0.00725;
+  const max_long = parseInt(long) + 0.00725, min_long = parseInt(long) - 0.00725;
   const now = moment(Date.now()).format('YYYY-MM-DD')+'T'+moment(Date.now()).format('HH')+'00:00';
   const end = moment(Date.now()).format('YYYY-MM-DD')+'T23:59:59';
   return db.any('SELECT * FROM events WHERE lat > $[min_lat] AND lat < $[max_lat] AND long > $[min_long] AND long < $[max_long] AND starts BETWEEN $[now] AND $[end]', { max_lat, min_lat, max_long, min_long, now, end });
