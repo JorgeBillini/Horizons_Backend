@@ -10,7 +10,7 @@ CREATE TABLE users (
   pic VARCHAR,
   interests TEXT [],
   events_attended JSON NOT NULL,
-  xp VARCHAR DEFAULT '0',
+  xp VARCHAR DEFAULT '0'
 );
 
 CREATE TABLE events (
