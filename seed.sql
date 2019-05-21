@@ -15,16 +15,12 @@ CREATE TABLE users (
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
-  name VARCHAR NOT NULL,
-  category VARCHAR NOT NULL,
-  subcategory VARCHAR,
-  format VARCHAR,
+  name_ VARCHAR NOT NULL,
   description_ JSON NOT NULL,
   url_ VARCHAR NOT NULL, 
   starts TIMESTAMP NOT NULL,
   ends TIMESTAMP NOT NULL,
   price VARCHAR NOT NULL,
-  organizer VARCHAR,
   logo VARCHAR,
   venue JSON NOT NULL,
   lat VARCHAR NOT NULL,

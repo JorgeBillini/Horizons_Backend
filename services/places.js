@@ -9,9 +9,9 @@ PlaceService.createPlace = (business_name, categ, sub_categ, addr, city, state, 
 	return dn.none(sql, { business_name, categ, sub_categ, addr, city, state, zip, lat, long, stars, review_count, hours, img_url })
 };
 
-PlaceService.readPlaceInRadius = (max_lat, min_lat, max_long, min_long) => {
-	const max_lat = parseInt(lat) + 0.00725, min_lat = parseInt(lat) - 0.00725;
-  const max_long = parseInt(long) + 0.00725, min_long = parseInt(long) - 0.00725;
+PlaceService.readPlaceInRadius = (lat, long) => {
+	const max_lat = parseFloat(lat) + 0.00725, min_lat = parseFloat(lat) - 0.00725;
+  const max_long = parseFloat(long) + 0.00725, min_long = parseFloat(long) - 0.00725;
 	return db.any('SELECT * FROM places WHERE lat > $[min_lat] AND lat < $[max_lat] AND long > $[min_long] AND long < $[max_long]', { max_lat, min_lat, max_long, min_long });
 };
 
