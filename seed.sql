@@ -1,7 +1,7 @@
-DROP DATABASE if exists horizons2;
-CREATE DATABASE horizons2;
+DROP DATABASE if exists horizons;
+CREATE DATABASE horizons;
 
-\c horizons2
+\c horizons
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
