@@ -18,7 +18,7 @@ CREATE TABLE users (
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
   name_ VARCHAR NOT NULL,
-  description_ JSON NOT NULL,
+  description_ VARCHAR NOT NULL,
   url_ VARCHAR NOT NULL, 
   starts TIMESTAMP NOT NULL,
   ends TIMESTAMP NOT NULL,

@@ -8,16 +8,16 @@ EventService.clearTable = () => db.none(
    CREATE TABLE EVENTS (
     id SERIAL PRIMARY KEY,
     name_ VARCHAR NOT NULL,
-    description_ JSON NOT NULL,
+    description_ VARCHAR NOT NULL,
     url_ VARCHAR NOT NULL, 
     starts TIMESTAMP NOT NULL,
     ends TIMESTAMP NOT NULL,
     price VARCHAR NOT NULL,
     logo VARCHAR,
-    venue JSON NOT NULL,
-    lat VARCHAR NOT NULL,
-    long VARCHAR NOT NULL,
-    capacity INT NOT NULL
+    venue VARCHAR NOT NULL,
+    lat VARCHAR ,
+    long VARCHAR,
+    capacity INT
    )`
 );
 
@@ -72,19 +72,15 @@ EventService.updateEvents = async () => {
       let sql = `INSERT INTO events 
       (name_, description_, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
-      VALUES`
-      for(let i = 0; i < res.length; i++){
-        let string = '('
-        const keys = ['name','description','url','starts','ends','price','logo','venue','lat','long','capacity']
-        for(let j = 0; j < keys.length; j++){
-          string += `${res[i][keys[j]]}`
-          if (j < keys.length - 1) string+=", ";
-        };
-        if(i < res.length -1) string += '),';
-        else string += ');';
-        sql += string;
-      };
-      return db.any(sql);
+      VALUES ($[name],$[description],$[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
+      for (let element of res) {
+        console.log(element)
+        let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
+        venue = JSON.stringify(venue)
+         db.none(sql,{name,price,logo,venue,lat,long,capacity,description,url,starts,ends})
+        .then(()=>console.log("_"),(err)=>console.log(e.toString()));
+      }
+
     })
     .catch(err => {
       console.log(err)

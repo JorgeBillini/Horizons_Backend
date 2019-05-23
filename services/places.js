@@ -34,7 +34,7 @@ PlaceService.deletePlace = () => {
   			long NUMERIC NOT NULL,
   			stars NUMERIC,
   			review_count INT,
-  			hours JSON,
+  			hours VARCHAR,
   			img_url VARCHAR)`)
 };
 

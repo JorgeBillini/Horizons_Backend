@@ -1,7 +1,7 @@
-DROP DATABASE if exists horizons;
-CREATE DATABASE horizons;
+DROP DATABASE if exists horizons2;
+CREATE DATABASE horizons2;
 
-\c horizons
+\c horizons2
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -9,22 +9,22 @@ CREATE TABLE users (
   email VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
-  events_attended JSON NOT NULL,
+  events_attended VARCHAR NOT NULL,
   xp VARCHAR DEFAULT '0'
 );
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
   name_ VARCHAR NOT NULL,
-  description_ JSON NOT NULL,
+  description_ VARCHAR NOT NULL,
   url_ VARCHAR NOT NULL, 
   starts TIMESTAMP NOT NULL,
   ends TIMESTAMP NOT NULL,
   price VARCHAR NOT NULL,
   logo VARCHAR,
-  venue JSON NOT NULL,
-  lat VARCHAR NOT NULL,
-  long VARCHAR NOT NULL,
+  venue VARCHAR NOT NULL,
+  lat VARCHAR ,
+  long VARCHAR ,
   capacity INT NOT NULL
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE places (
   long NUMERIC NOT NULL,
   stars NUMERIC,
   review_count INT,
-  hours_ JSON NOT NULL,
+  hours_ VARCHAR NOT NULL,
   img_url VARCHAR
 );
 
