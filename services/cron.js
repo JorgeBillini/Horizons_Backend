@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
 const EventService = require('./events');
 
-const job = new CronJob('35 51 15 * * *', () => {
+const job = new CronJob('00 00 03 * * *', () => {
   EventService.getEvents()
     .catch(err => {
       console.log(err)

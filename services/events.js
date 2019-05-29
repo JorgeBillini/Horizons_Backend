@@ -8,13 +8,13 @@ EventService.clearTable = () => db.none(
    CREATE TABLE EVENTS (
     id SERIAL PRIMARY KEY,
     name_ VARCHAR NOT NULL,
-    description_ VARCHAR NOT NULL,
+    description_ VARCHAR,
     url_ VARCHAR NOT NULL, 
     starts TIMESTAMP NOT NULL,
     ends TIMESTAMP NOT NULL,
     price VARCHAR NOT NULL,
     logo VARCHAR,
-    venue VARCHAR NOT NULL,
+    venue VARCHAR,
     lat VARCHAR ,
     long VARCHAR,
     capacity INT
@@ -33,7 +33,8 @@ EventService.getEvents = async () => {
   resArray.push(res.data);
   while(res.data.pagination.has_more_items !== false){
     p = `${res.data.pagination.page_number + 1}`
-    res = await axios.get(`https://www.eventbriteapi.com/v3/events/search/?location.address=${a}&location.within=${w}&start_date.range_start=${s}&start_date.range_end=${e}&expand=${x}&page=${p}&token=${t}`);
+    const url = `https://www.eventbriteapi.com/v3/events/search/?location.address=${a}&location.within=${w}&start_date.range_start=${s}&start_date.range_end=${e}&expand=${x}&page=${p}&token=${t}`
+    res = await axios.get(url);
     resArray.push(res.data);
   };
   let output = [];
@@ -54,7 +55,7 @@ EventService.getEvents = async () => {
         'address': ev.venue.localized_multi_line_address_display,
         'age_restriction': ev.venue.age_restriction,
       };
-      event.lat = ev.venue.latitutde;
+      event.lat = ev.venue.latitude;
       event.long = ev.venue.longitude;
       event.capacity = ev.venue.capacity;
       output.push(event);
@@ -74,11 +75,11 @@ EventService.updateEvents = async () => {
        ends, price, logo, venue, lat, long, capacity) 
       VALUES ($[name],$[description],$[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
-        console.log(element)
+        console.log(element,"is element ")
         let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
          db.none(sql,{name,price,logo,venue,lat,long,capacity,description,url,starts,ends})
-        .then(()=>console.log("_"),(err)=>console.log(e.toString()));
+        .then(()=>console.log("_"),(err)=>console.log(err.toString()));
       }
 
     })
