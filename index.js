@@ -10,7 +10,7 @@ const userRouter = require('./routes/users');
 const badgeRouter = require('./routes/badges');
 const awardRouter = require('./routes/awards');
 const eventRouter = require('./routes/events');
-// const placeRouter = require('./routes/places');
+const placeRouter = require('./routes/places');
 const job = require('./services/cron');
 
 //APP
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/events', eventRouter);
-// app.use('/places', placeRouter);
+app.use('/places', placeRouter);
 app.use('/badges', badgeRouter);
 app.use('/awards', awardRouter);
 
