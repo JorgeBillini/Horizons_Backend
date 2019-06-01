@@ -27,7 +27,7 @@ PlaceService.readYelpAPI = ( offset = 0 ) => {
 			const {id, name, image_url, categories, rating, price, phone} = e
 			const {latitude, longitude} = e.coordinates
 			const {address1, city, zip_code, state} = e.location
-			PlaceService.createPlace(id, name, image_url, categories, rating, latitude, longitude, address1, city, state, zip_code, phone)
+			PlaceService.createPlace(id, name, image_url, categories, rating, latitude, longitude, price, address1, city, state, zip_code, phone)
 			.catch(console.log)
 		})
 		return res
