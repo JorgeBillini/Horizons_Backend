@@ -89,7 +89,7 @@ EventService.updateEvents = async () => {
 EventService.getEventsInRadius = (min_lat, max_lat, min_long, max_long) => { 
   const now = moment(Date.now()).format('YYYY-MM-DD')+' '+moment(Date.now()).format('HH')+':00:00';
   const end = moment(Date.now()).format('YYYY-MM-DD')+' 23:59:59';
-  return db.any('SELECT * FROM events WHERE lat > $[min_lat] AND lat < $[max_lat] AND long > $[min_long] AND long < $[max_long] AND starts BETWEEN $[now] AND $[end]', { max_lat, min_lat, max_long, min_long, now, end });
+  return db.any('SELECT * FROM events WHERE CAST(lat AS NUMERIC) > $[min_lat] AND CAST(lat AS NUMERIC) < $[max_lat] AND CAST(long AS NUMERIC) > $[min_long] AND CAST(long AS NUMERIC) < $[max_long] AND starts BETWEEN $[now] AND $[end]', { max_lat, min_lat, max_long, min_long, now, end });
 };
 
 module.exports = EventService;
