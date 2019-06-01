@@ -19,7 +19,7 @@ const app = express();
 
 //CRON
 job.start();
-PlaceService.readYelpAPI();
+PlaceService.yelp();
 
 //ROUTERS & MIDDLEWARE
 app.use(cors());
