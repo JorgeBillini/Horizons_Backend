@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const {PlaceService} = require('./services/places.js')
 let env = '';
 if (process.env.NODE_ENV !== 'production') env = require('dotenv').config();
 
@@ -18,6 +19,7 @@ const app = express();
 
 //CRON
 job.start();
+PlaceService.readYelpAPI();
 
 //ROUTERS & MIDDLEWARE
 app.use(cors());
