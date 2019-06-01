@@ -39,13 +39,13 @@ PlaceService.readYelpAPI = ( offset = 0 ) => {
 };
 
 PlaceService.deletePlace = () => {
-	return db.none(`DROP TABLE IF EXISTS places
+	return db.none(`DROP TABLE IF EXISTS places;
 			CREATE TABLE places (
 			id SERIAL PRIMARY KEY,
   			business_id VARCHAR NOT NULL,
 			business_name VARCHAR NOT NULL,
 			img_url VARCHAR,
-			categories [],
+			categories TEXT [],
 			rating NUMERIC,
 			lat NUMERIC NOT NULL,
 			long NUMERIC NOT NULL,
@@ -57,5 +57,10 @@ PlaceService.deletePlace = () => {
 			phone NUMERIC
 			)`)
 };
+
+PlaceService.yelp = () => {
+	PlaceService.deletePlace()
+	PlaceService.readYelpAPI()
+}
 
 module.exports = {PlaceService}

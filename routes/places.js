@@ -5,8 +5,8 @@ const {PlaceService} = require('../services/places.js');
 module.exports = placeRouter;
 
 placeRouter.get('/', (req, res)=>{
-	const {min_lat, max_lat, min_long, max_long} = req.query
-	PlaceService(min_lat,max_lat, min_long, max_long)
+	const {lat, long} = req.query
+	PlaceService.readPlaceInRadius(lat, long)
 	.then(data=>res.json({'msg':data}))
 	.catch(err=>{
 		console.log(err)
