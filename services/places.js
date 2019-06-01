@@ -56,5 +56,3 @@ PlaceService.deletePlace = () => {
 			phone NUMERIC
 			)`)
 };
-
-PlaceService.readYelpAPI()
