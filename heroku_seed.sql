@@ -25,11 +25,10 @@ CREATE TABLE events (
   price VARCHAR NOT NULL,
   logo VARCHAR,
   venue VARCHAR NOT NULL,
-  lat VARCHAR ,
-  long VARCHAR ,
+  lat NUMERIC,
+  long NUMERIC,
   capacity INT NOT NULL
 );
-
 
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,

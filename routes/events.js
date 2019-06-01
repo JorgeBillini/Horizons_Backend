@@ -14,4 +14,14 @@ eventRouter.get('/',  (req, res, next) => {
     });
 });
 
+eventRouter.get('/u', (req, res, next) => {
+  EventService.updateEvents()
+  .then(() => {
+    res.json({success: true});
+  })
+  .catch(err => {
+    res.json({'error': err});
+  });
+});
+
 module.exports = eventRouter;
