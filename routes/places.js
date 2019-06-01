@@ -16,6 +16,5 @@ placeRouter.get('/', (req, res)=>{
 
 placeRouter.get('/u', (req, res)=>{
 	PlaceService.readYelpAPI()
-	.then(res.json({'msg':'update'}))
-	.catch(console.log)
+	res.json({'msg':'update'})
 })
