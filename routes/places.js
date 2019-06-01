@@ -6,7 +6,7 @@ module.exports = placeRouter;
 
 placeRouter.get('/', (req, res)=>{
 	const {lat, long} = req.query
-	PlaceService(lat, long)
+	PlaceService.readPlaceInRadius(lat, long)
 	.then(data=>res.json({'msg':data}))
 	.catch(err=>{
 		console.log(err)
