@@ -34,6 +34,7 @@ CREATE TABLE events (
   capacity INT NOT NULL
 );
 
+
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
   business_name VARCHAR NOT NULL,
