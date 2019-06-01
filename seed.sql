@@ -23,26 +23,25 @@ CREATE TABLE events (
   price VARCHAR NOT NULL,
   logo VARCHAR,
   venue VARCHAR NOT NULL,
-  lat VARCHAR ,
-  long VARCHAR ,
+  lat NUMERIC,
+  long NUMERIC,
   capacity INT NOT NULL
 );
 
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
-  business_id VARCHAR NOT NULL,
   business_name VARCHAR NOT NULL,
-  img_url VARCHAR,
-  categories TEXT [],
-  rating NUMERIC,
-  lat NUMERIC NOT NULL,
-  long NUMERIC NOT NULL,
-  price VARCHAR,
+  category VARCHAR NOT NULL,
   address_ VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
   state_ VARCHAR NOT NULL,
   zip VARCHAR NOT NULL,
-  phone NUMERIC
+  lat NUMERIC NOT NULL,
+  long NUMERIC NOT NULL,
+  stars NUMERIC,
+  review_count INT,
+  hours_ VARCHAR NOT NULL,
+  img_url VARCHAR
 );
 
 CREATE TABLE badges (
@@ -86,4 +85,3 @@ VALUES
 ('Alive & Well', 'User has checked in to 5+ events.', 50, 'need img url'),
 ('Intrepid Food Explorer', 'User has visited 5+ different restaurants.', 50, 'need img url'),
 ('Fit & Stronger', 'User has visited 5+ health or fitness events.', 50, 'need img url')
-);
