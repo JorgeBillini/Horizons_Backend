@@ -11,26 +11,22 @@ CREATE TABLE users (
   email VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
-  events_attended JSON NOT NULL,
+  events_attended VARCHAR NOT NULL,
   xp VARCHAR DEFAULT '0'
 );
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
-  name VARCHAR NOT NULL,
-  category VARCHAR NOT NULL,
-  subcategory VARCHAR,
-  format VARCHAR,
-  description_ JSON NOT NULL,
+  name_ VARCHAR NOT NULL,
+  description_ VARCHAR,
   url_ VARCHAR NOT NULL, 
   starts TIMESTAMP NOT NULL,
   ends TIMESTAMP NOT NULL,
   price VARCHAR NOT NULL,
-  organizer VARCHAR,
   logo VARCHAR,
-  venue JSON NOT NULL,
-  lat VARCHAR NOT NULL,
-  long VARCHAR NOT NULL,
+  venue VARCHAR NOT NULL,
+  lat VARCHAR ,
+  long VARCHAR ,
   capacity INT NOT NULL
 );
 
@@ -47,7 +43,7 @@ CREATE TABLE places (
   long NUMERIC NOT NULL,
   stars NUMERIC,
   review_count INT,
-  hours_ JSON NOT NULL,
+  hours_ VARCHAR NOT NULL,
   img_url VARCHAR
 );
 

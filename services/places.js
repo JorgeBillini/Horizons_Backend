@@ -2,7 +2,6 @@ const db = require('./db');
 const axios = require('axios');
 const moment = require('moment');
 const PlaceService = {};
-module.exports = {PlaceService};
 
 PlaceService.createPlace = (business_id, business_name, img_url, categories, rating, lat, long, price, address_, city, state_, zip, phone) => {
 	const sql = `INSERT INTO places (business_id, business_name, img_url, categories, rating, lat, long, price, address_, city, state_, zip, phone)
@@ -10,7 +9,9 @@ PlaceService.createPlace = (business_id, business_name, img_url, categories, rat
 	return db.none(sql, { business_id, business_name, img_url, categories, rating, lat, long, price, address_, city, state_, zip, phone })
 };
 
-PlaceService.readPlaceInRadius = (min_lat, max_lat, min_long, max_long) => {
+PlaceService.readPlaceInRadius = (lat, long) => {
+	const max_lat = parseFloat(lat) + 0.00725, min_lat = parseFloat(lat) - 0.00725;
+  const max_long = parseFloat(long) + 0.00725, min_long = parseFloat(long) - 0.00725;
 	return db.any('SELECT * FROM places WHERE lat > $[min_lat] AND lat < $[max_lat] AND long > $[min_long] AND long < $[max_long]', { max_lat, min_lat, max_long, min_long });
 };
 
@@ -56,3 +57,5 @@ PlaceService.deletePlace = () => {
 			phone NUMERIC
 			)`)
 };
+
+module.exports = {PlaceService}

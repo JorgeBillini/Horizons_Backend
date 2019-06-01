@@ -3,8 +3,8 @@ const eventRouter = express.Router();
 const EventService = require('../services/events');
 
 eventRouter.get('/',  (req, res, next) => {
-  const { lat, long } = req.body;
-  EventService.getEventsInRadius(lat, long)
+  const { min_lat, min_long, max_lat, max_long } = req.body;
+  EventService.getEventsInRadius(min_lat, min_long, max_lat, max_long)
     .then(data => {
       res.status(200);
       res.json({'data':data});
