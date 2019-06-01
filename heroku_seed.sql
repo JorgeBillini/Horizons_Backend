@@ -32,7 +32,7 @@ CREATE TABLE events (
 
 CREATE TABLE places (
   id SERIAL PRIMARY KEY,
-  business_name VARCHAR NOT NULL,
+  business_name VARCHAR UNIQUE NOT NULL,
   category VARCHAR NOT NULL,
   address_ VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
