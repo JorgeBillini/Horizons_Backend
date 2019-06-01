@@ -59,7 +59,6 @@ PlaceService.deletePlace = () => {
 };
 
 PlaceService.yelp = () => {
-	PlaceService.deletePlace()
 	PlaceService.readYelpAPI()
 }
 
