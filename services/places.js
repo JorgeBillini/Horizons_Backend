@@ -27,7 +27,7 @@ PlaceService.readYelpAPI = ( offset = 0 ) => {
 			const {id, name, image_url, categories, rating, price, phone} = e
 			const {latitude, longitude} = e.coordinates
 			const {address1, city, zip_code, state} = e.location
-			PlaceService.createPlace(id, name, image_url, categories, rating, latitude, longitude, address1, city, state, zip_code, phone)
+			PlaceService.createPlace(id, name, image_url, categories, rating, latitude, longitude, price, address1, city, state, zip_code, phone)
 			.catch(console.log)
 		})
 		return res
@@ -43,13 +43,13 @@ PlaceService.deletePlace = () => {
 			CREATE TABLE places (
 			id SERIAL PRIMARY KEY,
   			business_id VARCHAR NOT NULL,
-			business_name VARCHAR NOT NULL,
+  			business_name VARCHAR UNIQUE NOT NULL,
 			img_url VARCHAR,
 			categories TEXT [],
 			rating NUMERIC,
 			lat NUMERIC NOT NULL,
 			long NUMERIC NOT NULL,
-			price VARCHAR, 
+			price VARCHAR,
 			address_ VARCHAR NOT NULL,
 			city VARCHAR NOT NULL,
 			state_ VARCHAR NOT NULL,
@@ -59,7 +59,6 @@ PlaceService.deletePlace = () => {
 };
 
 PlaceService.yelp = () => {
-	PlaceService.deletePlace()
 	PlaceService.readYelpAPI()
 }
 

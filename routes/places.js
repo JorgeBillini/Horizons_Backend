@@ -13,3 +13,8 @@ placeRouter.get('/', (req, res)=>{
 		res.json({'msg':'error'})
 	})	
 });
+
+placeRouter.get('/u', (req, res)=>{
+	PlaceService.readYelpAPI()
+	res.json({'msg':'update'})
+})
