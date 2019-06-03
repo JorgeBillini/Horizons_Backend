@@ -9,7 +9,7 @@ CREATE TABLE users (
   email VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
-  events_attended VARCHAR NOT NULL,
+  events_attended VARCHAR,
   xp VARCHAR DEFAULT '0'
 );
 
