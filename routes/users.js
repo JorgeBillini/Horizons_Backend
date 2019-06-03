@@ -32,6 +32,18 @@ userRouter.get('/:id', (req, res) => {
     });
 });
 
+// Get user by email
+userRouter.get('/email/:email', (req, res) => {
+  const { email } = req.params;
+  UserService.getUserByEmail(email)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      res.status(404).json({ Error: err });
+    });
+});
+
 // Update user by id
 userRouter.put('/:id', (req, res) => {
   const { id } = req.params;
