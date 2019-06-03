@@ -22,6 +22,15 @@ UserService.getUserByID = (id) =>{
     return db.one(sql, {id});
 }
 
+UserService.getUserByEmail = (email) =>{
+    const sql =`
+        SELECT *
+        FROM users
+        WHERE email = $[email];
+    `;
+    return db.one(sql, {email});
+}
+
 UserService.updateUserByID = (id, {username, email, pic, interests, events_attended, xp}) =>{
     const sql = `
         UPDATE users
