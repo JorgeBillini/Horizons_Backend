@@ -10,7 +10,7 @@ CREATE TABLE users (
   pic VARCHAR,
   interests TEXT [],
   events_attended VARCHAR,
-  xp VARCHAR DEFAULT '0'
+  xp INT
 );
 
 CREATE TABLE events (
