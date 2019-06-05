@@ -11,8 +11,8 @@ CREATE TABLE users (
   email VARCHAR UNIQUE NOT NULL,
   pic VARCHAR,
   interests TEXT [],
-  events_attended VARCHAR NOT NULL,
-  xp VARCHAR DEFAULT '0'
+  events_attended VARCHAR,
+  xp INT
 );
 
 CREATE TABLE events (
