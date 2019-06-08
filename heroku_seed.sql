@@ -32,10 +32,10 @@ CREATE TABLE events (
   venue VARCHAR NOT NULL,
   lat NUMERIC,
   long NUMERIC,
-  capacity INT NOT NULL
+  capacity INT
 );
 
-CREATE TABLE past-events (
+CREATE TABLE past_events (
   id SERIAL PRIMARY KEY,
   user_id INT,
     FOREIGN KEY (user_id)
@@ -52,7 +52,7 @@ CREATE TABLE past-events (
   venue VARCHAR NOT NULL,
   lat NUMERIC,
   long NUMERIC,
-  capacity INT NOT NULL
+  capacity INT
 );
 
 CREATE TABLE places (
