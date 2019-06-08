@@ -1,22 +1,36 @@
 const db = require('./db');
 const axios = require('axios');
 const moment = require('moment');
+const pastEventService = require('./past-events');
 const EventService = {};
+
+EventService.getPastEvents = () =>{
+  const sql = `
+      SELECT * FROM events
+      WHERE user_id IS NOT NULL;
+  `
+  return db.any(sql);
+}
 
 EventService.clearTable = () => db.none(
   `DROP TABLE IF EXISTS events;
    CREATE TABLE EVENTS (
     id SERIAL PRIMARY KEY,
+    user_id INT,
+      FOREIGN KEY (user_id)
+      REFERENCES users(id)
+      ON DELETE CASCADE,
     name_ VARCHAR NOT NULL,
     description_ VARCHAR,
-    url_ VARCHAR NOT NULL, 
+    category VARCHAR,
+    url_ VARCHAR, 
     starts TIMESTAMP NOT NULL,
     ends TIMESTAMP NOT NULL,
     price VARCHAR NOT NULL,
     logo VARCHAR,
-    venue VARCHAR,
-    lat VARCHAR ,
-    long VARCHAR,
+    venue VARCHAR NOT NULL,
+    lat NUMERIC,
+    long NUMERIC,
     capacity INT
    )`
 );
@@ -65,7 +79,13 @@ EventService.getEvents = async () => {
 };
 
 EventService.updateEvents = async () => {
-  EventService.clearTable()
+  EventService.getPastEvents()
+    .then(arr =>{
+      return pastEventService.createEvents(arr);
+    })
+    .then( () => {
+      return EventService.clearTable();
+    })
     .then(() => {
       return EventService.getEvents();
     })
@@ -75,7 +95,6 @@ EventService.updateEvents = async () => {
        ends, price, logo, venue, lat, long, capacity) 
       VALUES ($[name],$[description],$[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
-        console.log(element,"is element ")
         let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
         db.none(sql,{name,price,logo,venue,lat,long,capacity,description,url,starts,ends})

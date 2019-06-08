@@ -17,9 +17,14 @@ CREATE TABLE users (
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
+  user_id INT,
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE,
   name_ VARCHAR NOT NULL,
   description_ VARCHAR,
-  url_ VARCHAR NOT NULL, 
+  category VARCHAR,
+  url_ VARCHAR, 
   starts TIMESTAMP NOT NULL,
   ends TIMESTAMP NOT NULL,
   price VARCHAR NOT NULL,
@@ -27,7 +32,27 @@ CREATE TABLE events (
   venue VARCHAR NOT NULL,
   lat NUMERIC,
   long NUMERIC,
-  capacity INT NOT NULL
+  capacity INT
+);
+
+CREATE TABLE past_events (
+  id SERIAL PRIMARY KEY,
+  user_id INT,
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE,
+  name_ VARCHAR NOT NULL,
+  description_ VARCHAR,
+  category VARCHAR,
+  url_ VARCHAR, 
+  starts TIMESTAMP NOT NULL,
+  ends TIMESTAMP NOT NULL,
+  price VARCHAR NOT NULL,
+  logo VARCHAR,
+  venue VARCHAR NOT NULL,
+  lat NUMERIC,
+  long NUMERIC,
+  capacity INT
 );
 
 CREATE TABLE places (
