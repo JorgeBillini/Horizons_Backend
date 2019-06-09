@@ -4,14 +4,14 @@ const moment = require('moment');
 const pastEventService = require('./past-events');
 const EventService = {};
 
-EventService.createEvents = ({user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity}) =>{
+EventService.createEvent = ({user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity}) =>{
   const sql = `
     INSERT INTO events 
     (user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity) 
     VALUES
     ($[user_id], $[name_], $[description_], $[category], $[url_], $[starts], $[ends], $[price], $[logo], $[venue], $[lat], $[long], $[capacity])
     RETURNING *;
-`;
+  `;
   return db.one(sql, {user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity});
 }
 
