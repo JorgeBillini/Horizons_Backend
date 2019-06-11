@@ -15,6 +15,7 @@ eventRouter.post('/', (req, res) =>{
     })
 });
 
+// get past event service
 eventRouter.get('/past/:user_id', (req, res) =>{
   const {user_id} = req.params;
   PastEventService.readEventsByUserId(user_id)
