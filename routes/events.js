@@ -39,7 +39,7 @@ eventRouter.get('/:user_id', (req, res) =>{
     })
 })
 
-eventRouter.get('/',  (req, res, next) => {
+eventRouter.get('/',  (req, res) => {
   const { min_lat, min_long, max_lat, max_long } = req.query;
   EventService.getEventsInRadius(min_lat, max_lat, min_long, max_long)
     .then(data => {
@@ -51,7 +51,7 @@ eventRouter.get('/',  (req, res, next) => {
     });
 });
 
-eventRouter.get('/u', (req, res, next) => {
+eventRouter.get('/u', (req, res) => {
   EventService.updateEvents()
   .then(() => {
     res.json({success: true});
