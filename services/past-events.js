@@ -5,7 +5,7 @@ module.exports = PastEventService;
 
 PastEventService.createEvents = (arr) =>{
     
-    console.log('the array is...', arr);
+    // console.log('the array is...', arr);
     let sql = `
         INSERT INTO past_events
         (user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity)
@@ -36,4 +36,12 @@ PastEventService.createEvents = (arr) =>{
 
         return db.none(sql);
     }
+}
+
+PastEventService.readEventsByUserId = (id) =>{
+    const sql = `
+        SELECT * FROM past_events
+        WHERE user_id=$[id];
+    `;
+    return db.any(sql, {id});
 }

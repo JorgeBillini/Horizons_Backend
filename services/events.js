@@ -15,6 +15,14 @@ EventService.createEvent = ({user_id, name_, description_, category, url_, start
   return db.one(sql, {user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity});
 }
 
+EventService.getCurrentEventsByUserId = (id) =>{
+  const sql = `
+    SELECT * FROM events
+    WHERE user_id=$[id];
+  `;
+  return db.any(sql, {id});
+}
+
 EventService.getPastEvents = () =>{
   const sql = `
       SELECT * FROM events

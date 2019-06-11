@@ -1,6 +1,7 @@
 const express = require('express');
 const eventRouter = express.Router();
 const EventService = require('../services/events');
+const PastEventService = require('../services/past-events');
 
 eventRouter.post('/', (req, res) =>{
   const {user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity} = req.body;
@@ -25,6 +26,30 @@ eventRouter.get('/',  (req, res, next) => {
       res.json({'error':err});
     });
 });
+
+eventRouter.get('/:user_id', (req, res) =>{
+  const {user_id} = req.params;
+  EventService.getCurrentEventsByUserId(user_id)
+    .then(data =>{
+      res.status(200);
+      res.json({data});
+    })
+    .catch(err =>{
+      res.json({'error': err});
+    })
+})
+
+eventRouter.get('/past/:user_id', (req, res) =>{
+  const {user_id} = req.params;
+  PastEventService.readEventsByUserId(user_id)
+    .then(data =>{
+      res.status(200);
+      res.json({data});
+    })
+    .catch(err =>{
+      res.json({'error': err});
+    })
+})
 
 eventRouter.get('/u', (req, res, next) => {
   EventService.updateEvents()
