@@ -110,13 +110,13 @@ EventService.updateEvents = async () => {
     })
     .then(res => {
       let sql = `INSERT INTO events 
-      (name_, user_id, description_, url_, starts, 
+      (name_, user_id, description_, category, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
-      VALUES ($[name], $[user_id], $[description],$[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
+      VALUES ($[name], $[user_id], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
         let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-        db.none(sql,{name, user_id: null, price,logo,venue,lat,long,capacity,description,url,starts,ends})
+        db.none(sql,{name, user_id: null, category: null, price,logo,venue,lat,long,capacity,description,url,starts,ends})
       }
     })
     .catch(err => {
