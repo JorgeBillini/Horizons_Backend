@@ -58,7 +58,8 @@ eventRouter.get('/u', (req, res) => {
     res.json({success: true});
   })
   .catch(err => {
-    res.json({'error': err});
+    console.log(err.ToString());
+    res.json({'error': err.ToString()});
   });
 });
 
