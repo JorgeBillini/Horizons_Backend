@@ -118,11 +118,7 @@ EventService.updateEvents = async () => {
       for (let element of res) {
         let {name,user_id, category, price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-<<<<<<< HEAD
         db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
-=======
-        db.none(sql,{name, user_id: null, category: null, price,logo,venue,lat,long,capacity,description,url,starts,ends})
->>>>>>> master
       }
     })
     .catch(err => {
