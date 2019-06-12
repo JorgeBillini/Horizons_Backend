@@ -26,7 +26,6 @@ eventRouter.post('/',(req,res)=>{
   lat NUMERIC,
   long NUMERIC,
   capacity INT NOT NULL
-
   */
 })
 eventRouter.get('/u', (req, res, next) => {
