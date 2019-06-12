@@ -76,6 +76,8 @@ EventService.getEvents = async () => {
     for(let j = 0; j < resArray[i].events.length; j++){
       const ev = events[j]
       const event = {}
+      event.user_id = null
+      event.category = 'undefined'
       event.name = ev.name.text
       event.description = ev.description.text;
       event.url = ev.url;
@@ -114,9 +116,13 @@ EventService.updateEvents = async () => {
        ends, price, logo, venue, lat, long, capacity) 
       VALUES ($[name], $[user_id], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
-        let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
+        let {name,user_id, category, price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
+<<<<<<< HEAD
+        db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
+=======
         db.none(sql,{name, user_id: null, category: null, price,logo,venue,lat,long,capacity,description,url,starts,ends})
+>>>>>>> master
       }
     })
     .catch(err => {
