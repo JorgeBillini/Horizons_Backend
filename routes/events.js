@@ -11,7 +11,7 @@ eventRouter.post('/', (req, res) =>{
       res.json({eventCreated: event});
     })
     .catch(err =>{
-      res.json({'error': err});
+      res.json({'error THE error': err.toString() });
     })
 });
 
