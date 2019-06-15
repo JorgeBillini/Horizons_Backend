@@ -1,22 +1,55 @@
 const db = require('./db');
 const axios = require('axios');
 const moment = require('moment');
+const pastEventService = require('./past-events');
 const EventService = {};
+
+EventService.createEvent = ({user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity}) =>{
+  const sql = `
+    INSERT INTO events 
+    (user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity) 
+    VALUES
+    ($[user_id], $[name_], $[description_], $[category], $[url_], $[starts], $[ends], $[price], $[logo], $[venue], $[lat], $[long], $[capacity])
+    RETURNING *;
+  `;
+  return db.one(sql, {user_id, name_, description_, category, url_, starts, ends, price, logo, venue, lat, long, capacity});
+}
+
+EventService.getCurrentEventsByUserId = (id) =>{
+  const sql = `
+    SELECT * FROM events
+    WHERE user_id=$[id];
+  `;
+  return db.any(sql, {id});
+}
+
+EventService.getPastEvents = () =>{
+  const sql = `
+      SELECT * FROM events
+      WHERE user_id IS NOT NULL;
+  `
+  return db.any(sql);
+}
 
 EventService.clearTable = () => db.none(
   `DROP TABLE IF EXISTS events;
    CREATE TABLE EVENTS (
     id SERIAL PRIMARY KEY,
+    user_id INT,
+      FOREIGN KEY (user_id)
+      REFERENCES users(id)
+      ON DELETE CASCADE,
     name_ VARCHAR NOT NULL,
     description_ VARCHAR,
-    url_ VARCHAR NOT NULL, 
+    category VARCHAR,
+    url_ VARCHAR, 
     starts TIMESTAMP NOT NULL,
     ends TIMESTAMP NOT NULL,
     price VARCHAR NOT NULL,
     logo VARCHAR,
-    venue VARCHAR,
-    lat VARCHAR ,
-    long VARCHAR,
+    venue VARCHAR NOT NULL,
+    lat NUMERIC,
+    long NUMERIC,
     capacity INT
    )`
 );
@@ -43,6 +76,8 @@ EventService.getEvents = async () => {
     for(let j = 0; j < resArray[i].events.length; j++){
       const ev = events[j]
       const event = {}
+      event.user_id = null
+      event.category = 'undefined'
       event.name = ev.name.text
       event.description = ev.description.text;
       event.url = ev.url;
@@ -65,20 +100,25 @@ EventService.getEvents = async () => {
 };
 
 EventService.updateEvents = async () => {
-  EventService.clearTable()
+  EventService.getPastEvents()
+    .then(arr =>{
+      return pastEventService.createEvents(arr);
+    })
+    .then( () => {
+      return EventService.clearTable();
+    })
     .then(() => {
       return EventService.getEvents();
     })
     .then(res => {
       let sql = `INSERT INTO events 
-      (name_, description_, url_, starts, 
+      (name_, user_id, description_, category, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
-      VALUES ($[name],$[description],$[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
+      VALUES ($[name], $[user_id], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
-        console.log(element,"is element ")
-        let {name,price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
+        let {name,user_id, category, price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-        db.none(sql,{name,price,logo,venue,lat,long,capacity,description,url,starts,ends})
+        db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
       }
     })
     .catch(err => {
