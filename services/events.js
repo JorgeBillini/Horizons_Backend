@@ -127,7 +127,7 @@ EventService.updateEvents = async () => {
 };
 
 EventService.getAllEvents = () => {
-	return db.any('SELECT * FROM events;')
+	return db.any('SELECT * FROM events')
 }
 
 EventService.getEventsInRadius = (min_lat, max_lat, min_long, max_long) => { 
