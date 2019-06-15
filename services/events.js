@@ -90,8 +90,8 @@ EventService.getEvents = async () => {
         'address': ev.venue.localized_multi_line_address_display,
         'age_restriction': ev.venue.age_restriction,
       };
-      event.lat = ev.venue.latitude;
-      event.long = ev.venue.longitude;
+      event.lat = parseFloat(ev.venue.latitude);
+      event.long = parseFloat(ev.venue.longitude);
       event.capacity = ev.venue.capacity;
       output.push(event);
     };
