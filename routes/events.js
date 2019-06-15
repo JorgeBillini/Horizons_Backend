@@ -63,4 +63,14 @@ eventRouter.get('/u', (req, res) => {
   });
 });
 
+eventRouter.get('/all', (req, res) => {
+	EventService.getAllEvents()
+	.then(data => {
+		res.json({'msg': data})
+	})
+	.catch(data => {
+		res.json({'error': data})
+	})
+})
+
 module.exports = eventRouter;
