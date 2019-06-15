@@ -66,6 +66,7 @@ eventRouter.get('/u', (req, res) => {
 eventRouter.get('/all', (req, res) => {
 	EventService.getAllEvents()
 	.then(data => {
+		console.log(data)
 		res.json({'msg': data})
 	})
 	.catch(data => {
