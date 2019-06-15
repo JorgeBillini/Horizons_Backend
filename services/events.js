@@ -92,7 +92,7 @@ EventService.getEvents = async () => {
       };
       event.lat = parseFloat(ev.venue.latitude);
       event.long = parseFloat(ev.venue.longitude);
-      event.capacity = parseFloat(ev.venue.capacity);
+      event.capacity = ev.venue.capacity;
       output.push(event);
     };
   };
