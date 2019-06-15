@@ -126,6 +126,10 @@ EventService.updateEvents = async () => {
     });
 };
 
+EventService.getAllEvents = () => {
+	return db.any('SELECT * FROM events;')
+}
+
 EventService.getEventsInRadius = (min_lat, max_lat, min_long, max_long) => { 
   const now = moment(Date.now()).format('YYYY-MM-DD')+' '+moment(Date.now()).format('HH')+':00:00';
   const end = moment(Date.now()).format('YYYY-MM-DD')+' 23:59:59';
