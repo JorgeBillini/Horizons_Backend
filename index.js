@@ -17,7 +17,6 @@ const app = express();
 
 //CRON
 job.start();
-PlaceService.yelp();
 
 //ROUTERS & MIDDLEWARE
 app.use(cors());
