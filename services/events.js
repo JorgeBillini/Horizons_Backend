@@ -104,7 +104,7 @@ EventService.updateEvents = async () => {
     .then(arr =>{
       return pastEventService.createEvents(arr);
     })
-    .then( () => {
+    .then(() => {
       return EventService.clearTable();
     })
     .then(() => {
@@ -118,7 +118,7 @@ EventService.updateEvents = async () => {
       for (let element of res) {
         let {name,user_id, category, price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-        db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
+        await db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
       }
     })
     .catch(err => {
