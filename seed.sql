@@ -15,7 +15,7 @@ CREATE TABLE users (
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
-  user_id INT,
+  user_id INT DEFAULT NULL,
     FOREIGN KEY (user_id)
     REFERENCES users(id)
     ON DELETE CASCADE,

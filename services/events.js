@@ -76,7 +76,6 @@ EventService.getEvents = async () => {
     for(let j = 0; j < resArray[i].events.length; j++){
       const ev = events[j]
       const event = {}
-      event.user_id = null
       event.category = 'undefined'
       event.name = ev.name.text
       event.description = ev.description.text;
@@ -92,7 +91,7 @@ EventService.getEvents = async () => {
       };
       event.lat = parseFloat(ev.venue.latitude);
       event.long = parseFloat(ev.venue.longitude);
-      event.capacity = parseInt(ev.venue.capacity) || null;
+      event.capacity = ev.venue.capacity;
       output.push(event);
     };
   };
@@ -110,16 +109,17 @@ EventService.updateEvents = async () => {
     .then(() => {
       return EventService.getEvents();
     })
-    .then(async res => {
-      let sql = `INSERT INTO events 
+    .then(async (res) => {
+      let sql = `INSERT INTO events
       (name_, description_, category, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
-      VALUES ($[name], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
+      VALUES ($[name], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity]) RETURNING id`
       for (let element of res) {
         let {name, category, price, logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-        await db.none(sql,{name, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
-      }
+        await db.one(sql, {name, category, price,logo,venue,lat,long,capacity,description,url,starts,ends});
+      };
+      return { 'success': true };
     })
     .catch(err => {
       console.log(err);

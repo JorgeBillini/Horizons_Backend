@@ -28,7 +28,7 @@ eventRouter.get('/past/:user_id', (req, res) =>{
     })
 })
 
-eventRouter.get('/:user_id', (req, res) =>{
+eventRouter.get('/user/:user_id', (req, res) =>{
   const {user_id} = req.params;
   EventService.getCurrentEventsByUserId(user_id)
     .then(data =>{
@@ -58,8 +58,7 @@ eventRouter.get('/u', (req, res) => {
     res.json({success: true});
   })
   .catch(err => {
-    console.log(err.ToString());
-    res.json({'error': err.ToString()});
+    res.json({'error': err});
   });
 });
 
