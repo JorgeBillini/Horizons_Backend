@@ -35,7 +35,7 @@ EventService.clearTable = () => db.none(
   `DROP TABLE IF EXISTS events;
    CREATE TABLE EVENTS (
     id SERIAL PRIMARY KEY,
-    user_id INT,
+    user_id INT DEFAULT NULL,
       FOREIGN KEY (user_id)
       REFERENCES users(id)
       ON DELETE CASCADE,
@@ -92,7 +92,7 @@ EventService.getEvents = async () => {
       };
       event.lat = parseFloat(ev.venue.latitude);
       event.long = parseFloat(ev.venue.longitude);
-      event.capacity = parseInt(ev.venue.capacity) || 0;
+      event.capacity = parseInt(ev.venue.capacity) || null;
       output.push(event);
     };
   };
@@ -112,13 +112,13 @@ EventService.updateEvents = async () => {
     })
     .then(async res => {
       let sql = `INSERT INTO events 
-      (name_, user_id, description_, category, url_, starts, 
+      (name_, description_, category, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
-      VALUES ($[name], $[user_id], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
+      VALUES ($[name], $[description], $[category], $[url],$[starts],$[ends],$[price],$[logo],$[venue],$[lat],$[long],$[capacity])`
       for (let element of res) {
-        let {name,user_id, category, price,logo, venue,lat,long,capacity,description,url,starts,ends} = element;
+        let {name, category, price, logo, venue,lat,long,capacity,description,url,starts,ends} = element;
         venue = JSON.stringify(venue)
-        await db.none(sql,{name, user_id, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
+        await db.none(sql,{name, category, price,logo,venue,lat,long,capacity,description,url,starts,ends})
       }
     })
     .catch(err => {
