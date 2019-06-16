@@ -110,7 +110,7 @@ EventService.updateEvents = async () => {
     .then(() => {
       return EventService.getEvents();
     })
-    .then(res => {
+    .then(async res => {
       let sql = `INSERT INTO events 
       (name_, user_id, description_, category, url_, starts, 
        ends, price, logo, venue, lat, long, capacity) 
