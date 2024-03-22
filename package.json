@@ -15,7 +15,7 @@
     "cors": "^2.8.5",
     "cron": "^1.7.2",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.19.1",
     "moment": "^2.24.0",
     "pg-promise": "^8.7.5",
     "superagent": "^5.1.2",
